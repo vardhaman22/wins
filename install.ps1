@@ -437,6 +437,7 @@ function Invoke-WinsInstaller {
         }
         else {
             Write-LogInfo "Downloading uninstall script from $($env:CATTLE_AGENT_UNINSTALL_URL)"
+            Write-Host "Downloading uninstall script from $($env:CATTLE_AGENT_UNINSTALL_URL)"
             if ($env:UNINSTALL_SOURCE -ne "upstream") {
                 $env:CURL_BIN_CAFLAG = $env:CURL_CAFLAG
             }
