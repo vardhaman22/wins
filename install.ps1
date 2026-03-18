@@ -301,7 +301,7 @@ function Invoke-WinsInstaller {
         else {
             $env:UNINSTALL_SOURCE = "remote"
             if (-Not $env:CATTLE_AGENT_UNINSTALL_URL -and $env:CATTLE_AGENT_BINARY_BASE_URL) {
-                $env:CATTLE_AGENT_UNINSTALL_URL = "$env:CATTLE_AGENT_BINARY_BASE_URL/uninstall.ps1"
+                $env:CATTLE_AGENT_UNINSTALL_URL = "$env:CATTLE_AGENT_BINARY_BASE_URL/wins-agent-uninstall.ps1"
             }
 
             if (-Not $env:CATTLE_AGENT_UNINSTALL_URL) {
@@ -433,7 +433,7 @@ function Invoke-WinsInstaller {
 
         if ($env:CATTLE_AGENT_UNINSTALL_LOCAL -eq "true") {
             Write-LogInfo "Using local uninstall script from $($env:CATTLE_AGENT_UNINSTALL_LOCAL_LOCATION)"
-            Copy-Item -Path $env:CATTLE_AGENT_UNINSTALL_LOCAL_LOCATION -Destination "$env:CATTLE_AGENT_BIN_PREFIX/bin/rancher-wins-uninstall.ps1"
+            Copy-Item -Path $env:CATTLE_AGENT_UNINSTALL_LOCAL_LOCATION -Destination "$env:CATTLE_AGENT_BIN_PREFIX/bin/wins-agent-uninstall.ps1"
         }
         else {
             Write-LogInfo "Downloading uninstall script from $($env:CATTLE_AGENT_UNINSTALL_URL)"
@@ -447,7 +447,7 @@ function Invoke-WinsInstaller {
 
             $retries = 0
             while ($retries -lt 6) {
-                $responseCode = $(curl.exe --connect-timeout 60 --max-time 300 --write-out "%{http_code}\n" $env:CURL_BIN_CAFLAG -sfL "$($env:CATTLE_AGENT_UNINSTALL_URL)" -o "$env:CATTLE_AGENT_BIN_PREFIX/bin/rancher-wins-uninstall.ps1")
+                $responseCode = $(curl.exe --connect-timeout 60 --max-time 300 --write-out "%{http_code}\n" $env:CURL_BIN_CAFLAG -sfL "$($env:CATTLE_AGENT_UNINSTALL_URL)" -o "$env:CATTLE_AGENT_BIN_PREFIX/bin/wins-agent-uninstall.ps1")
 
                 switch ( $responseCode ) {
                     { "ok200", 200 } {
@@ -464,8 +464,8 @@ function Invoke-WinsInstaller {
                 }
             }
         }
-        if (-Not (Test-Path "$env:CATTLE_AGENT_BIN_PREFIX/bin/rancher-wins-uninstall.ps1")) {
-            Write-LogFatal "rancher-wins-uninstall.ps1 doesn't appear to have been installed."
+        if (-Not (Test-Path "$env:CATTLE_AGENT_BIN_PREFIX/bin/wins-agent-uninstall.ps1")) {
+            Write-LogFatal "wins-agent-uninstall.ps1 doesn't appear to have been installed."
         }
     }
 
