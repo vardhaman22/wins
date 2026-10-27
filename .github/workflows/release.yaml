@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - 'final-*'
 
 jobs:
   create-push-image-windows-2022:
