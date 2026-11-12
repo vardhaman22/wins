@@ -222,10 +222,12 @@ func runService(ctx context.Context, server *apis.Server, agent *systemagent.Age
 	for {
 		select {
 		case err := <-h.errC:
+			logrus.Info("received stop errC with error: ", err)
 			if err != nil {
 				return err
 			}
 		case <-h.doneC:
+			logrus.Info("received stop doneC")
 			return nil
 		}
 	}
