@@ -94,5 +94,5 @@ func main() {
 	}
 
 	logrus.Debug("Finished")
-	panic("unsuccessful")
+	logrus.Fatal("unsuccessful")
 }
