@@ -3,7 +3,6 @@ package app
 import (
 	"context"
 	"io/ioutil"
-	"log"
 	"os"
 	"strings"
 	"time"
@@ -267,7 +266,7 @@ Loop:
 			// Update the service's current status to the one provided by the ChangeRequest
 			s <- c.CurrentStatus
 		case svc.Stop, svc.Shutdown:
-			log.Println("received stop")
+			logrus.Info("received stop")
 			// Cleanup before finishing execution
 			s <- svc.Status{State: svc.StopPending, Accepts: 0}
 			// stop wins server
