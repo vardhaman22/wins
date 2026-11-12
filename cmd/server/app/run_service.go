@@ -275,5 +275,6 @@ Loop:
 	}
 
 	close(h.doneC)
-	return false, 0
+	panic("service stopped unexpectedly")
+	// return false, 0
 }
